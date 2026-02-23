@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Matemática Financiera</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #eef2f7; user-select: none; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; position: relative; }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .problem { font-weight: bold; margin-bottom: 15px; font-size: 1.1em; }
+        .points { font-size: 0.8em; color: #7f8c8d; float: right; font-style: italic; }
+        
+        /* Estilos de opciones */
+        .options-container { display: flex; flex-direction: column; gap: 10px; }
+        .option-item { display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        .option-item:hover { background-color: #f0f7ff; }
+        .option-item input { margin-right: 12px; }
+        
+        /* Pantallas */
+        #login-screen, #exam-screen { display: none; }
+        #login-screen.active, #exam-screen.active { display: block; }
+
+        button { background: #3498db; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-size: 1em; width: 100%; margin-top: 10px; font-weight: bold; }
+        button:hover { background: #2980b9; }
+        
+        /* Feedback visual */
+        .feedback { margin-top: 15px; padding: 10px; border-radius: 6px; font-weight: bold; display: none; }
+        .is-correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .is-incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
+        /* Área de Resultado Final */
+        #final-score-area { display: none; background: #2c3e50; color: white; padding: 30px; border-radius: 12px; text-align: center; margin-top: 30px; border: 4px solid #3498db; }
+        #final-name { font-size: 1.8em; margin-bottom: 5px; color: #ecf0f1; text-transform: uppercase; }
+        #final-grade { font-size: 3em; margin: 0; color: #2ecc71; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .total-label { font-size: 1.2em; color: #bdc3c7; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="login-screen" class="active card">
+        <h1>Identificación del Estudiante</h1>
+        <div style="margin-bottom: 15px;">
+            <label>Nombre:</label>
+            <input type="text" id="student-name" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label>Apellido:</label>
+            <input type="text" id="student-lastname" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; box-sizing: border-box;">
+        </div>
+        <button onclick="startExam()">Entrar al Examen</button>
+    </div>
+
+    <div id="exam-screen">
+        <h2 id="welcome-msg" style="text-align: center; color: #34495e;"></h2>
+
+        <div class="card" id="card-q1">
+            <span class="points">(0.5 pts)</span>
+            <p class="problem">1. Un emprendedor solicita un préstamo de $5,000 para comprar maquinaria, el banco le aplica una tasa de interes simple del 6% anual si planea pagar el prestamo en  2 años. ¿Cuánto pagara unicamente por concepto interés?</p>
+            <div class="options-container">
+                <label class="option-item"><input type="radio" name="q1" value="500"> $500</label>
+                <label class="option-item"><input type="radio" name="q1" value="600"> $600</label>
+                <label class="option-item"><input type="radio" name="q1" value="1200"> $1,200</label>
+            </div>
+            <div id="fb-q1" class="feedback"></div>
+        </div>
+
+        <div class="card" id="card-q2">
+            <span class="points">(1.0 pts)</span>
+            <p class="problem">2. Maria Ahorro  $2,500 en una cuenta que le ofrece el 1.5% mensual de interes simple, ella quiere retirar su dinero despues de  8 meses. ¿ Cual sera el Monto total que recibira Maria?</p>
+            <div class="options-container">
+                <label class="option-item"><input type="radio" name="q2" value="2800"> $2,800</label>
+                <label class="option-item"><input type="radio" name="q2" value="2650"> $2,650</label>
+                <label class="option-item"><input type="radio" name="q2" value="3000"> $3,000</label>
+            </div>
+            <div id="fb-q2" class="feedback"></div>
+        </div>
+
+        <div class="card" id="card-q3">
+            <span class="points">(0.5 pts)</span>
+            <p class="problem">3. Una tienda de electronica ofrece una Laptop de $1,200 a credito, la tasa es del 18% anual, si decides pagarla en  9 meses. ¿Cuanto habras pagado de interes al final del plazo?</p>
+            <div class="options-container">
+                <label class="option-item"><input type="radio" name="q3" value="216"> $216</label>
+                <label class="option-item"><input type="radio" name="q3" value="162"> $162</label>
+                <label class="option-item"><input type="radio" name="q3" value="180"> $180</label>
+            </div>
+            <div id="fb-q3" class="feedback"></div>
+        </div>
+
+        <div class="card" id="card-q4">
+            <span class="points">(1.0 pts)</span>
+            <p class="problem">4. ¿Qué opción genera más ganancia para $10,000 por 1 año?</p>
+            <div class="options-container">
+                <label class="option-item"><input type="radio" name="q4" value="A"> Opción A: 0.8% mensual</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> Opción B: 10% anual</label>
+            </div>
+            <div id="fb-q4" class="feedback"></div>
+        </div>
+
+        <button id="btn-finish" onclick="verifyKey()">Finalizar y Calificar</button>
+
+        <div id="final-score-area">
+            <div class="total-label">RESULTADO PARA:</div>
+            <div id="final-name"></div>
+            <div id="final-grade"></div>
+            <p style="margin-top: 20px; opacity: 0.8;">Desliza hacia arriba para ver la corrección detallada.</p>
+            <button onclick="location.reload()" style="background:#e74c3c; width: auto; padding: 10px 20px;">Cerrar Examen</button>
+        </div>
+    </div>
+
+    <script>
+        const PROFESSOR_KEY = "1234"; 
+        const config = {
+            q1: { correct: "600", points: 0.5 },
+            q2: { correct: "2800", points: 1.0 },
+            q3: { correct: "162", points: 0.5 },
+            q4: { correct: "B", points: 1.0 }
+        };
+
+        // Restricciones de teclado (F5, Ctrl+C, Ctrl+V, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 116 || (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85))) {
+                e.preventDefault();
+                alert("Acción no permitida.");
+            }
+        });
+
+        function startExam() {
+            const n = document.getElementById('student-name').value;
+            const l = document.getElementById('student-lastname').value;
+            if (!n || !l) return alert("Por favor, ingresa nombre y apellido.");
+            
+            document.getElementById('login-screen').classList.remove('active');
+            document.getElementById('exam-screen').classList.add('active');
+            document.getElementById('welcome-msg').innerText = `Estudiante: ${n} ${l}`;
+        }
+
+        function verifyKey() {
+            const pass = prompt("Ingrese la clave del profesor para calificar:");
+            if (pass === PROFESSOR_KEY) {
+                calculateResults();
+            } else if (pass !== null) {
+                alert("Clave incorrecta.");
+            }
+        }
+
+        function calculateResults() {
+            let totalScore = 0;
+            const firstName = document.getElementById('student-name').value;
+            const lastName = document.getElementById('student-lastname').value;
+
+            for (let i = 1; i <= 4; i++) {
+                const qId = `q${i}`;
+                const selected = document.querySelector(`input[name="${qId}"]:checked`);
+                const feedbackDiv = document.getElementById(`fb-${qId}`);
+                const userVal = selected ? selected.value : null;
+
+                feedbackDiv.style.display = "block";
+                
+                if (userVal === config[qId].correct) {
+                    totalScore += config[qId].points;
+                    feedbackDiv.className = "feedback is-correct";
+                    feedbackDiv.innerText = `¡Correcto! (+${config[qId].points} pts)`;
+                } else {
+                    feedbackDiv.className = "feedback is-incorrect";
+                    feedbackDiv.innerText = `Incorrecto. (La respuesta era: ${config[qId].correct})`;
+                }
+                
+                // Bloquear radios
+                document.querySelectorAll(`input[name="${qId}"]`).forEach(input => input.disabled = true);
+            }
+
+            // Mostrar el bloque de resultado final
+            document.getElementById('btn-finish').style.display = "none";
+            const scoreArea = document.getElementById('final-score-area');
+            scoreArea.style.display = "block";
+            
+            document.getElementById('final-name').innerText = `${firstName} ${lastName}`;
+            document.getElementById('final-grade').innerText = `${totalScore.toFixed(1)} / 3.0`;
+            
+            // Scroll automático al resultado
+            scoreArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
